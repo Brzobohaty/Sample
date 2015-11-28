@@ -1,34 +1,31 @@
 'use strict';
-  
+
 angular.module('myApp.authentication')
 
-/**
- * Registrace uživatele
- */
-.controller('RegistrationController', function ($scope, $location, UserService, toastr, AuthenticationService) {
-    // reset login status
-    AuthenticationService.ClearCredentials();
+        /**
+         * Registrace uživatele
+         * http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543
+         */
+        .controller('RegistrationController', ['$scope', '$location', 'AuthenticationService', 'UserModel', 'toastr', function ($scope, $location, AuthenticationService, UserModel, toastr) {
+                AuthenticationService.logout();
 
-    /**
-     * Registrace uživatele
-     */
-    $scope.register = function() {
-        $scope.dataLoading = true;
-        UserService.Create($scope.user)
-            .then(function (response) {
-                if (response.success) {
-                    if(response.status === 201){
+                $scope.registerData = new UserModel();
+
+                $scope.register = function () {
+                    $scope.disabled = true;
+                    $scope.dataLoading = true;
+                    $scope.registerData.$save(function (response) {
                         toastr.success('', 'Registration successful');
-                        $location.path('/login');
-                    }else{
-                        toastr.error('', 'Registration error');
-                        $location.path('/login');
-                    }
-                } else {
-                    toastr.error(response.message, 'Chyba');
-                    $scope.dataLoading = false;
-                }
-            });
-    };
-});
-
+                        $location.path('login');
+                        $scope.registerData = {};
+                        $scope.disabled = false;
+                        $scope.dataLoading = false;
+                    }, function (response) {
+                        $scope.registerForm.$setPristine();
+                        $scope.error = response.data.errorMessage;
+                        $scope.registerData = {};
+                        $scope.disabled = false;
+                        $scope.dataLoading = false;
+                    });
+                };
+            }]);

@@ -6,10 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/user');
+var login = require('./routes/login');
+var topic = require('./routes/topic');
 
-mongoose.connect('mongodb://localhost:27241/test', function (err) {
+//připojení k databázi
+mongoose.connect('mongodb://localhost:27017/forum', function (err) {
     if (err) {
         console.log('connection error', err);
     } else {
@@ -20,8 +22,8 @@ mongoose.connect('mongodb://localhost:27241/test', function (err) {
 var app = express();
 
 // view engine setup
-//app.set('views', path.join(__dirname, 'views'));
-//app.set('view engine', 'jade');
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -31,14 +33,15 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/../client')));
 
-// application -------------------------------------------------------------
-app.get('*', function(req, res) {
-    res.sendfile('client/app/main/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+// application
+app.get('/', function (req, res) {
+    res.sendfile('client/app/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
 
-app.use('/', routes);
-
-app.use('/users', users);
+// rest api routes
+app.use('/rest-api/user', user);
+app.use('/rest-api/login', login);
+app.use('/rest-api/topic', topic);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/brzik/meanstack-3.0.7-0/projects/sample/client/app/main/services/UserService.js</file>
-            <file>file:/home/brzik/meanstack-3.0.7-0/projects/sample/client/app/modules/authentication/controllers/RegistrationController.js</file>
-            <file>file:/home/brzik/meanstack-3.0.7-0/projects/sample/client/app/modules/authentication/views/registration.html</file>
+            <file>file:/home/brzik/meanstack-3.0.7-0/projects/PWA/client/app/main/app.js</file>
+            <file>file:/home/brzik/meanstack-3.0.7-0/projects/PWA/client/app/modules/topics/controllers.js</file>
+            <file>file:/home/brzik/meanstack-3.0.7-0/projects/PWA/client/app/modules/topics/models/Topic.js</file>
         </group>
     </open-files>
 </project-private>

@@ -1,27 +1,24 @@
 <h2>Registrace</h2>
-<div ng-show="error" class="alert alert-danger">{{error}}</div>
-<form name="form" ng-submit="register()" role="form">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <i class="fa fa-key"></i>
-        <input type="text" name="username" id="username" class="form-control" ng-model="user.username" required />
-        <span ng-show="form.username.$dirty && form.user.username.$error.required" class="help-block">Username is required</span>
+<form name="registerForm" class="m-t-md" ng-submit="register()">
+    <div ng-show="error" class="alert alert-danger" role="alert">
+        {{error}}
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <i class="fa fa-lock"></i>
-        <input type="password" name="password" id="password" class="form-control" ng-model="user.password" required />
-        <span ng-show="form.password.$dirty && form.user.password.$error.required" class="help-block">Password is required</span>
+        <input type="email" name="email" id="email" class="form-control" ng-model="registerData.email" placeholder="Email" required />
+        <label ng-show="registerForm.email.$dirty && registerForm.email.$error.required" class="error">Email je povinný</label>
+        <label ng-show="registerForm.email.$dirty && registerForm.email.$error.email" class="error">Špatný formát emailu</label>
     </div>
     <div class="form-group">
-        <label for="email">Email</label>
-        <i class="fa fa-envelope"></i>
-        <input type="email" name="email" id="email" class="form-control" ng-model="user.email" required />
-        <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
-        <span ng-show="form.email.$dirty && form.email.$error.email" class="help-block">Nesprávný formát emailové adresy.</span>
+        <input type="password" name="password" id="password" class="form-control" ng-model="registerData.password" placeholder="Heslo" required />
+        <label ng-show="registerForm.password.$dirty && registerForm.password.$error.required" class="error">Heslo je povinné</label>
     </div>
-    <div class="form-actions">
-        <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-danger">Registrovat</button>
-        <i ng-if="dataLoading" class="fa fa-spinner fa-pulse"></i>
+    <div class="form-group">
+        <input type="text" name="firstname" class="form-control" ng-model="registerData.firstname" placeholder="Jméno" required />
+        <label ng-show="registerForm.firstname.$dirty && registerForm.firstname.$error.required" class="error">Jméno je povinné</label>
     </div>
+    <div class="form-group">
+        <input type="text" name="surname" class="form-control" ng-model="registerData.surname" placeholder="Příjmení" required />
+        <label ng-show="registerForm.surname.$dirty && registerForm.surname.$error.required" class="error">Příjmení je povinné</label>
+    </div>                          
+    <button type="submit" ng-disabled="disabled || registerForm.$invalid" class="btn btn-success btn-block">Registrovat <i ng-if="dataLoading" class="fa fa-spinner fa-pulse"></i></button>
 </form>

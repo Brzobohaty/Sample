@@ -1,33 +1,32 @@
 'use strict';
-  
+
 angular.module('myApp.authentication')
 
-/**
- * Přihlášení uživatele
- */
-.controller('LoginController', function ($scope, $location, AuthenticationService) {
-    // reset login status
-    AuthenticationService.ClearCredentials();
+        /**
+         * Přihlášení uživatele
+         * http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543
+         */
+        .controller('LoginController', ['$scope', '$location', 'AuthenticationService', function ($scope, $location, AuthenticationService) {
+                AuthenticationService.logout();
+                
+                $scope.login = function () {
+                    $scope.disabled = true;
+                    $scope.dataLoading = true;
 
-    /**
-     * Přihlášení uživatele
-     */
-    $scope.login = function () {
-        $scope.dataLoading = true;
-        AuthenticationService.Login($scope.username, $scope.password, function(data, status, success) {
-            if(success) {
-                if(status === 204) {
-                    AuthenticationService.SetCredentials($scope.username, $scope.password);
-                    $location.path('/topics');
-                } else {
-                    $scope.error = "Nesprávné přihlašovací údaje.";
-                    $scope.dataLoading = false;
-                }
-            } else {
-                $scope.error = "Nelze se připojit k serveru.";
-                $scope.dataLoading = false;
-            }
-        });
-    };
-});
+                    AuthenticationService.login($scope.loginData)
+                            .then(function (response) {
+                                $location.path('/');
+                                $scope.loginData = {};
+                                $scope.disabled = false;
+                                $scope.dataLoading = false;
+                            })
+                            .catch(function (response) {
+                                $scope.loginForm.$setPristine();
+                                $scope.error = response.data.errorMessage;
+                                $scope.loginData = {};
+                                $scope.disabled = false;
+                                $scope.dataLoading = false;
+                            });
+                };
+            }]);
 

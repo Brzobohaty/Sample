@@ -1,7 +1,7 @@
-<h2>{{topic.topic_name}}</h2>
+<h2>{{topic.name}}</h2>
 <div class="post" ng-repeat="post in topic.posts">
     <h3>Předmět: {{ post.subject}}</h3>
-    <h4>Autor: {{ post.user_name}}</h4>
+    <h4>Autor: {{ post.user.firstname}} {{ post.user.surname}}</h4>
     <p>{{ post.content}}</p>
 </div>
 <div>

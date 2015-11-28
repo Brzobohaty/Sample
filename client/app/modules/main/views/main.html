@@ -1,0 +1,17 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/topics">Fórum</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ng-show="logedIn" ng-class="{'active': $state.includes('main.topics')}"><a href="#/topics">Všechny témata</a></li>
+                <li ng-show="!logedIn" ng-class="{'active': $state.includes('main.registration')}"><a href="#/registration">Registrace</a></li>
+                <li ng-show="!logedIn" ng-class="{'active': $state.includes('main.login')}"><a href="#/login">Login</a></li>
+                <li ng-show="logedIn" ng-class="{'active': $state.includes('main.login')}"><a href="#/login">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" data-ui-view></div>

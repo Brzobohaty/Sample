@@ -1,7 +1,6 @@
 <h2>Témata</h2>
 <ul>
-    <p ng-show="dataLoadingg">nevim</p>
-    <li ng-repeat="topic in topics"><a href="#/topic/{{topic.id}}">{{ topic.name}}</a></li>
+    <li ng-repeat="topic in topics"><a href="#/topic/{{topic._id}}">{{ topic.name}}</a></li>
 </ul>
 <div>
     <uib-accordion>
